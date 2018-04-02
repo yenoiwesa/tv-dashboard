@@ -1,0 +1,22 @@
+{
+  "name": "monorail-tv",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "finalhandler": "^1.1.1",
+    "jquery": "^3.3.1",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-scripts": "1.1.1",
+    "react-transitions": "^1.0.0",
+    "serve-static": "^1.13.2",
+    "socket.io": "^2.1.0",
+    "socket.io-client": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
