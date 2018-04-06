@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import scaled from '../scaled/scaled';
-import JiraFilterList from '../jiraFilterList/JiraFilterList';
-import JiraRecord from '../jiraRecord/JiraRecord';
-import StandUp from '../standUp/StandUp';
+import scaleSlide from '../slides/scaleSlide';
+import JiraRecordList from '../slides/jiraRecordList/JiraRecordList';
+import JiraRecord from '../slides/jiraRecord/JiraRecord';
+import StandUp from '../slides/standUp/StandUp';
+import CountDown from '../slides/countDown/CountDown';
 import WebSocket from '../../services/WebSocket';
 import ReactTransitions from 'react-transitions';
 import './App.css';
 import 'react-transitions/dist/animations.css';
 
-const ScaledJiraFilterList = scaled(JiraFilterList);
-const ScaledJiraRecord = scaled(JiraRecord);
-const ScaledStandUp = scaled(StandUp);
+const ScaledJiraRecordList = scaleSlide(JiraRecordList);
+const ScaledJiraRecord = scaleSlide(JiraRecord);
+const ScaledStandUp = scaleSlide(StandUp);
+const ScaledCountDown = scaleSlide(CountDown);
 
 class App extends Component {
 
@@ -36,14 +38,17 @@ class App extends Component {
     let slide;
     if (this.state.slide) {
       switch (this.state.slide.type) {
-        case 'jiraFilterList':
-          slide = (<ScaledJiraFilterList key={this.state.slide.id}/>);
+        case 'jiraRecordList':
+          slide = (<ScaledJiraRecordList key={this.state.slide.id} slide={this.state.slide}/>);
           break;
         case 'jiraRecord':
-          slide = (<ScaledJiraRecord key={this.state.slide.id}/>);
+          slide = (<ScaledJiraRecord key={this.state.slide.id} slide={this.state.slide}/>);
           break;
         case 'standUp':
-          slide = (<ScaledStandUp key={this.state.slide.id}/>);
+          slide = (<ScaledStandUp key={this.state.slide.id} slide={this.state.slide}/>);
+          break;
+        case 'countDown':
+          slide = (<ScaledCountDown key={this.state.slide.id} slide={this.state.slide}/>);
           break;
         default:
           break;

@@ -1,8 +1,10 @@
+let id_generator = 0;
+
 class Slide {
 
   constructor(type) {
     this.type = type;
-    this.id = (new Date).getTime();
+    this.id = id_generator++;
     // default duration
     this.duration = 10000;
     this.timeoutId;

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import jQuery from 'jquery';
 
 // This function takes a component...
-function scaled(WrappedComponent) {
+function scaleSlide(WrappedComponent) {
   // ...and returns another component...
   return class extends Component {
 
@@ -44,4 +44,4 @@ function scaled(WrappedComponent) {
   };
 }
 
-export default scaled;
+export default scaleSlide;

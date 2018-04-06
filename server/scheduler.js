@@ -1,7 +1,11 @@
 const cron = require('node-schedule');
-const JiraFilterListSlide = require('./jiraFilterListSlide');
-const JiraRecordSlide = require('./jiraRecordSlide');
-const StandUpSlide = require('./standUpSlide');
+const Jira = require('./jira');
+const JiraRecordListSlide = require('./slides/jiraRecordListSlide');
+const JiraRecordSlide = require('./slides/jiraRecordSlide');
+const StandUpSlide = require('./slides/standUpSlide');
+const CountDownSlide = require('./slides/countDownSlide');
+
+const BUG_TRACKER_FILTER_ID = 22947;
 
 class Scheduler {
 
@@ -12,15 +16,23 @@ class Scheduler {
   }
 
   start() {
-    this.nextSlide();
-
     // prepare scheduled slides
-    cron.scheduleJob('0 0 10 * * 1-5', () => this.showSlide(new StandUpSlide()));
+    this.standUpJob = cron.scheduleJob('0 0 10 * * 1-5', () => this.showSlide(new StandUpSlide()));
+    this.lunchJob = cron.scheduleJob('0 0 12 * * 1-5', () => this.showSlide(new StandUpSlide()));
+
+    // start the jira backend
+    this.jira = new Jira([BUG_TRACKER_FILTER_ID]);
+    
+    this.nextSlide();
   }
 
   prepareDeck() {
-    this.deck.push(new JiraFilterListSlide());
+    this.deck.push(new JiraRecordListSlide(this.jira.filters[BUG_TRACKER_FILTER_ID]));
     this.deck.push(new JiraRecordSlide());
+    // countdown to stand up
+    this.deck.push(new CountDownSlide(this.standUpJob.nextInvocation(), 'standUp'));
+    // countdown to stand up
+    this.deck.push(new CountDownSlide(this.lunchJob.nextInvocation(), 'lunch'));
   }
 
   nextSlide() {
