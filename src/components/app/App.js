@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   changeSlide(event) {
-    this.setState({ slide: event.slide });
+    this.setState({ slide: event });
   }
 
   componentWillUnmount() {
@@ -34,18 +34,20 @@ class App extends Component {
 
   render() {
     let slide;
-    switch (this.state.slide) {
-      case 'jiraFilterList':
-        slide = (<ScaledJiraFilterList key={this.state.slide}/>);
-        break;
-      case 'jiraRecord':
-        slide = (<ScaledJiraRecord key={this.state.slide}/>);
-        break;
-      case 'standUp':
-        slide = (<ScaledStandUp key={this.state.slide}/>);
-        break;
-      default:
-        break;
+    if (this.state.slide) {
+      switch (this.state.slide.type) {
+        case 'jiraFilterList':
+          slide = (<ScaledJiraFilterList key={this.state.slide.id}/>);
+          break;
+        case 'jiraRecord':
+          slide = (<ScaledJiraRecord key={this.state.slide.id}/>);
+          break;
+        case 'standUp':
+          slide = (<ScaledStandUp key={this.state.slide.id}/>);
+          break;
+        default:
+          break;
+      }
     }
 
     return (

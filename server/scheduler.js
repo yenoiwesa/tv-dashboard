@@ -15,7 +15,7 @@ class Scheduler {
     this.nextSlide();
 
     // prepare scheduled slides
-    cron.scheduleJob('*/33 * * * * *', () => this.showSlide(new StandUpSlide()));
+    cron.scheduleJob('0 0 10 * * 1-5', () => this.showSlide(new StandUpSlide()));
   }
 
   prepareDeck() {

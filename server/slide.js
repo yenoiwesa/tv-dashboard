@@ -1,7 +1,8 @@
 class Slide {
 
-  constructor(id) {
-    this.id = id;
+  constructor(type) {
+    this.type = type;
+    this.id = (new Date).getTime();
     // default duration
     this.duration = 10000;
     this.timeoutId;
@@ -17,7 +18,8 @@ class Slide {
 
   getData() {
     return {
-      slide: this.id
+      id: this.id,
+      type: this.type
     };
   }
 
