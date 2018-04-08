@@ -2,9 +2,11 @@ const Slide = require('./slide');
 
 class JiraRecordListSlide extends Slide {
 
-  constructor(records) {
+  constructor(title, records) {
     super('jiraRecordList');
+    this.title = title;
     this.records = records;
+    this.duration = 30000;
   }
 
   isDisplayable() {
@@ -13,6 +15,7 @@ class JiraRecordListSlide extends Slide {
 
   getData() {
     let data = super.getData();
+    data.title = this.title;
     data.records = this.records;
     return data;
   }

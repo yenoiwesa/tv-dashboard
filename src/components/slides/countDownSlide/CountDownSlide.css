@@ -1,39 +1,39 @@
-.CountDown {
+.CountDownSlide {
   background-color: #D35400;
 }
 
-.CountDown-lunch {
+.CountDownSlide-lunch {
   background-color: #16A085;
 }
 
-.CountDown-content {
+.CountDownSlide-content {
   padding: 20px;
   color: white;
   font-size: 12px;
   text-align: center;
 }
 
-.CountDown-title {
+.CountDownSlide-title {
   font-weight: 300;
 }
 
-.CountDown-event {
+.CountDownSlide-event {
   font-size: 24px;
   font-weight: 400;
   text-transform: uppercase;
 }
 
-.CountDown-separator {
+.CountDownSlide-separator {
   border-bottom: 1px solid white;
   margin: 5px 60px 15px;
   opacity: 0.5;
 }
 
-.CountDown-time {
+.CountDownSlide-time {
   font-size: 40px;
 }
 
-.CountDown-time span {
+.CountDownSlide-time span {
   margin: 10px;
   opacity: 0.5;
 }

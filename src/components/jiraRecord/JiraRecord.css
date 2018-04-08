@@ -1,0 +1,119 @@
+.JiraRecord {
+  display: flex;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #2C3E50;
+  width: 600px;
+  padding: 15px;
+}
+
+.JiraRecord-bug {
+  border-left: 6px solid #E74C3C;
+}
+.JiraRecord-bug .JiraRecord-type {
+  background-color: #E74C3C;
+}
+
+.JiraRecord-task {
+  border-left: 6px solid #3498DB;
+}
+.JiraRecord-task .JiraRecord-type {
+  background-color: #3498DB;
+}
+
+.JiraRecord-story {
+  border-left: 6px solid #1ABC9C;
+}
+.JiraRecord-story .JiraRecord-type {
+  background-color: #1ABC9C;
+}
+
+.JiraRecord-main {
+  flex: 1;
+}
+
+.JiraRecord-key {
+  color: #2980B9;
+  margin-bottom: 8px;
+}
+
+.JiraRecord-type-details {
+  padding-right: 15px;
+}
+
+.JiraRecord-summary {
+  font-weight: 300;
+  min-height: 80px;
+  font-size: 25px;
+}
+
+.JiraRecord-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+}
+
+.JiraRecord-type > i {
+  font-size: 18px;
+}
+
+.JiraRecord-priority {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+}
+.JiraRecord-priority-I {
+  background-color: #BDC3C7;
+}
+.JiraRecord-priority-L {
+  background-color: #1ABC9C;
+}
+.JiraRecord-priority-M {
+  background-color: #3498DB;
+}
+.JiraRecord-priority-H {
+  background-color: #E67E22;
+}
+.JiraRecord-priority-C {
+  background-color: #C0392B;
+}
+
+.JiraRecord-bottom {
+  margin-top: 10px;
+  display: flex;
+  font-weight: 300;
+  font-size: 16px;
+  color: #BDC3C7;
+}
+
+.JiraRecord-bottom > div {
+  margin-right: 20px;
+}
+
+.JiraRecord-bottom > div > span {
+  display: block;
+  font-size: 20px;
+  color: #95A5A6;
+}
+
+.JiraRecord-other-details {
+  margin-left: 15px;
+}
+
+.JiraRecord-avatar {
+  border-radius: 4px;
+  height: 60px;
+  width: 60px;
+}

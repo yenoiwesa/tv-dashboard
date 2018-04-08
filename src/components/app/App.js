@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import scaleSlide from '../slides/scaleSlide';
-import JiraRecordList from '../slides/jiraRecordList/JiraRecordList';
-import JiraRecord from '../slides/jiraRecord/JiraRecord';
-import StandUp from '../slides/standUp/StandUp';
-import CountDown from '../slides/countDown/CountDown';
+import JiraRecordListSlide from '../slides/jiraRecordListSlide/JiraRecordListSlide';
+import JiraRecordSlide from '../slides/jiraRecordSlide/JiraRecordSlide';
+import StandUpSlide from '../slides/standUpSlide/StandUpSlide';
+import CountDownSlide from '../slides/countDownSlide/CountDownSlide';
 import WebSocket from '../../services/WebSocket';
 import ReactTransitions from 'react-transitions';
 import './App.css';
 import 'react-transitions/dist/animations.css';
 
-const ScaledJiraRecordList = scaleSlide(JiraRecordList);
-const ScaledJiraRecord = scaleSlide(JiraRecord);
-const ScaledStandUp = scaleSlide(StandUp);
-const ScaledCountDown = scaleSlide(CountDown);
+const ScaledJiraRecordList = scaleSlide(JiraRecordListSlide);
+const ScaledJiraRecord = scaleSlide(JiraRecordSlide);
+const ScaledStandUp = scaleSlide(StandUpSlide);
+const ScaledCountDown = scaleSlide(CountDownSlide);
 
 class App extends Component {
 

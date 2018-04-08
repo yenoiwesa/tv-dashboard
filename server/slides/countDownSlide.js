@@ -1,4 +1,5 @@
 const Slide = require('./slide');
+const moment = require('moment');
 
 class CountDownSlide extends Slide {
 
@@ -6,6 +7,11 @@ class CountDownSlide extends Slide {
     super('countDown');
     this.date = date;
     this.event = event;
+  }
+
+  isDisplayable() {
+    // only displayable 2 hours before event
+    return moment(this.date).isSameOrAfter(moment().subtract(2, 'hours'));
   }
 
   getData() {

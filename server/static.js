@@ -1,16 +1,22 @@
-const http = require('http');
-const finalhandler = require('finalhandler');
-const serveStatic = require('serve-static');
+const Koa = require('koa');
+const convert = require('koa-connect');
+const serveStatic = require('koa-static');
+const proxy = require('http-proxy-middleware');
+const Jira = require('./jira');
 
-const serve = serveStatic('./build');
-
-const server = http.createServer(function(req, res) {
-    const done = finalhandler(req, res);
-    serve(req, res, done);
-});
+const app = new Koa();
+app.use(convert(proxy('/jira', {
+    target: Jira.JIRA_SERVER,
+    changeOrigin: true,
+    pathRewrite: {
+        '^/jira' : '/'
+    },
+    auth: 'matthieu:Objective03?'
+})));
+app.use(serveStatic('./build'));
 
 module.exports.run = function (port) {
-    server.listen(port);
+    app.listen(port);
     console.log(`static server listening on port ${port}`);
 }
     

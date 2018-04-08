@@ -1,0 +1,31 @@
+.JiraRecordListSlide {
+  background-color: #ECF0F1;
+}
+
+.JiraRecordListSlide-content {
+  padding: 20px;
+  color: white;
+  font-size: 22px;
+}
+
+.JiraRecordListSlide-title {
+  color: #34495E;
+  text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-size: 60px;
+  font-weight: 300;
+}
+
+.JiraRecordListSlide-columns {
+  display: flex;
+}
+
+.JiraRecordListSlide-column {
+  margin: 0 20px;
+}
+
+.JiraRecordListSlide-column > * {
+  margin: 20px 0;
+}
