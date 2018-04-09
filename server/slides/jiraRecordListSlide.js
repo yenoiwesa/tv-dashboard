@@ -6,7 +6,7 @@ class JiraRecordListSlide extends Slide {
     super('jiraRecordList');
     this.title = title;
     this.records = records;
-    this.duration = 30000;
+    this.duration = 20 * 1000;
   }
 
   isDisplayable() {

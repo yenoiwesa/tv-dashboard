@@ -6,7 +6,7 @@ class JiraRecordSlide extends Slide {
     super('jiraRecord');
     this.title = title;
     this.record = record;
-    this.duration = 20*1000;
+    this.duration = 10*1000;
   }
 
   getData() {

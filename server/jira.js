@@ -1,6 +1,7 @@
 const cron = require('node-schedule');
 const _ = require('lodash');
 const request = require('request-promise');
+const Config = require('./config');
 
 const JIRA_SERVER = 'https://jira.objective.com';
 const SPRINT_REGEX = /state=(CLOSED|ACTIVE|FUTURE),.*?name=(.*?),/;
@@ -38,8 +39,8 @@ class Jira {
         uri: `${JIRA_SERVER}/rest/api/2/search?jql=filter=${filterId}&${fields}`,
         json: true,
         auth: {
-          user: 'matthieu',
-          pass: 'Objective03?'
+          user: Config.jira.user,
+          pass: Config.jira.passw
         }
       }).then(data => {
         this.filters[filterId] = data.issues.map(Jira.mapRecord);

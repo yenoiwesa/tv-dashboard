@@ -8,7 +8,7 @@ class StandUpSlide extends Component {
     return (
       <div className="StandUpSlide u-slide-container">
         <div className="StandUpSlide-content">
-          It's stand up time!
+          <div className="StandUpSlide-text">It's stand up time!</div>
         </div>
       </div>
     );

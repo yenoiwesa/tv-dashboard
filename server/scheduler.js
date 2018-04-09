@@ -32,13 +32,17 @@ class Scheduler {
 
   prepareDeck() {
     // countdown to stand up
-    this.deck.push(new CountDownSlide(this.standUpJob.nextInvocation(), 'standUp'));
-    // countdown to stand up
-    this.deck.push(new CountDownSlide(this.lunchJob.nextInvocation(), 'lunch'));
+    this.deck.push(new CountDownSlide(new Date(this.standUpJob.nextInvocation()), 'standUp'));
+
     // records in progress
-    this.deck.push(new JiraRecordListSlide('Currently in progress', this.jira.filters[IN_PROGRESS_FILTER_ID]));
+    this.deck.push(new JiraRecordListSlide('In progress', this.jira.filters[IN_PROGRESS_FILTER_ID]));
+
+    // countdown to stand up
+    this.deck.push(new CountDownSlide(new Date(this.lunchJob.nextInvocation()), 'lunch'));
+
     // records in backlog
     this.deck.push(new JiraRecordListSlide('Bug tickets in backlog', this.jira.filters[BUG_TRACKER_FILTER_ID]));
+    
     // recently opened records
     const recentRecords = this.jira.filters[RECENTLY_OPENED_FILTER_ID];
     if (recentRecords) {

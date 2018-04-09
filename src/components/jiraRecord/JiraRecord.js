@@ -40,7 +40,7 @@ class JiraRecord extends Component {
     let bottomDetails = [];
     bottomDetails.push((<div key="created">created <span>{moment(record.created).fromNow()}</span></div>));
     if (record.creator) {
-      bottomDetails.push((<div key="sprint">by <span>{record.creator.shortName}</span></div>));
+      bottomDetails.push((<div key="creator">by <span>{record.creator.shortName}</span></div>));
     }
     if (record.sprint) {
       bottomDetails.push((<div key="sprint">in sprint <span>{record.sprint.name}</span></div>));

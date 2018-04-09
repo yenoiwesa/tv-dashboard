@@ -3,6 +3,7 @@ const convert = require('koa-connect');
 const serveStatic = require('koa-static');
 const proxy = require('http-proxy-middleware');
 const Jira = require('./jira');
+const Config = require('./config');
 
 const app = new Koa();
 app.use(convert(proxy('/jira', {
@@ -11,7 +12,7 @@ app.use(convert(proxy('/jira', {
     pathRewrite: {
         '^/jira' : '/'
     },
-    auth: 'matthieu:Objective03?'
+    auth: `${Config.jira.user}:${Config.jira.passw}`
 })));
 app.use(serveStatic('./build'));
 

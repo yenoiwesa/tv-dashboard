@@ -10,8 +10,8 @@ class CountDownSlide extends Slide {
   }
 
   isDisplayable() {
-    // only displayable 2 hours before event
-    return moment(this.date).isSameOrAfter(moment().subtract(2, 'hours'));
+    // only displayable 3 hours before event
+    return moment().isSameOrAfter(moment(this.date).subtract(3, 'hours'));
   }
 
   getData() {
