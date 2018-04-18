@@ -16,13 +16,17 @@ class JiraRecord extends Component {
         typeCode = 'bug';
         typeIcon = (<i className="material-icons">whatshot</i>);
         break;
+      case '10000':
+        typeCode = 'bug'; /* customer bug */
+        typeIcon = (<i className="material-icons">bug_report</i>);
+        break;
       case '3':
         typeCode = 'task';
         typeIcon = (<i className="material-icons">check</i>);
         break;
       case '41':
         typeCode = 'epic';
-        typeIcon = (<i className="material-icons">blur_on</i>);
+        typeIcon = (<i className="material-icons">flash_on</i>);
         break;
       case '42':
         typeCode = 'story';

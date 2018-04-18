@@ -29,6 +29,13 @@
   background-color: #1ABC9C;
 }
 
+.JiraRecord-epic {
+  border-left: 6px solid #8E44AD;
+}
+.JiraRecord-epic .JiraRecord-type {
+  background-color: #8E44AD;
+}
+
 .JiraRecord-main {
   flex: 1;
 }
