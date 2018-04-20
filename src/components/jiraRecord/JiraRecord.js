@@ -62,6 +62,7 @@ class JiraRecord extends Component {
         <div className="JiraRecord-main">
           <div className="JiraRecord-key">{record.key}</div>
           <div className="JiraRecord-summary">{_.truncate(record.summary, { length: 150 })}</div>
+          <div className={`JiraRecord-status JiraRecord-status-${record.status.key}`}>{record.status.name}</div>
           <div className="JiraRecord-bottom">
             {bottomDetails}
           </div>

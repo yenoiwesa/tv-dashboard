@@ -13,7 +13,7 @@ class Jira {
     this.filters = {};
 
     this.fetchRecords().then(() => {
-      this.job = cron.scheduleJob('0 0/15 * * * 1-5', () => this.fetchRecords());
+      this.job = cron.scheduleJob('0 */5 * * * 1-5', () => this.fetchRecords());
     });
   }
 
@@ -44,7 +44,7 @@ class Jira {
         }
       }).then(data => {
         this.filters[filterId] = data.issues.map(Jira.mapRecord);
-        console.info(`Filter ${filterId} data retrieved.`);
+        console.info(`Filter ${filterId} data retrieved at ${new Date()}.`);
       });
     });
 
