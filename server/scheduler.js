@@ -4,6 +4,7 @@ const Jira = require('./jira');
 const JiraRecordListSlide = require('./slides/jiraRecordListSlide');
 const JiraRecordSlide = require('./slides/jiraRecordSlide');
 const StandUpSlide = require('./slides/standUpSlide');
+const LunchSlide = require('./slides/lunchSlide');
 const CountDownSlide = require('./slides/countDownSlide');
 
 const RECENTLY_OPENED_FILTER_ID = 23344;
@@ -22,7 +23,11 @@ class Scheduler {
   start() {
     // prepare scheduled slides
     this.standUpJob = cron.scheduleJob('0 0 10 * * 1-5', () => this.showSlide(new StandUpSlide()));
-    this.lunchJob = cron.scheduleJob('0 0 12 * * 1-5', () => this.showSlide(new StandUpSlide()));
+    this.standUpFinalCountdown = cron.scheduleJob('0 55 9 * * 1-5', () => 
+      this.showSlide(new CountDownSlide(new Date(this.standUpJob.nextInvocation()), 'standUp', 10 * 60 * 1000))
+    );
+
+    this.lunchJob = cron.scheduleJob('0 0 12 * * 1-5', () => this.showSlide(new LunchSlide()));
 
     // start the jira backend
     this.jira = new Jira(FILTERS);
