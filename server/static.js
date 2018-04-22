@@ -11,7 +11,7 @@ module.exports.run = function (port) {
         target: Jira.JIRA_SERVER,
         changeOrigin: true,
         pathRewrite: {
-            '^/jira' : '/'
+            '^/jira': '/'
         },
         auth: `${Config.jira.user}:${Config.jira.passw}`
     })));
@@ -19,5 +19,5 @@ module.exports.run = function (port) {
 
     app.listen(port);
     console.log(`static server listening on port ${port}`);
-}
+};
     

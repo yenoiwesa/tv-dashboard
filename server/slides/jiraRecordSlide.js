@@ -2,19 +2,19 @@ const Slide = require('./slide');
 
 class JiraRecordSlide extends Slide {
 
-  constructor(title, record) {
-    super('jiraRecord');
-    this.title = title;
-    this.record = record;
-    this.duration = 10*1000;
-  }
+    constructor(title, record) {
+        super('jiraRecord');
+        this.title = title;
+        this.record = record;
+        this.duration = 10 * 1000;
+    }
 
-  getData() {
-    let data = super.getData();
-    data.title = this.title;
-    data.record = this.record;
-    return data;
-  }
+    getData() {
+        const data = super.getData();
+        data.title = this.title;
+        data.record = this.record;
+        return data;
+    }
 
 }
 

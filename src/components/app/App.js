@@ -18,56 +18,56 @@ const ScaledCountDown = scaleSlide(CountDownSlide);
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.changeSlide = this.changeSlide.bind(this);
-    this.state = {
-      slide: null
-    };
+    constructor(props) {
+        super(props);
+        this.changeSlide = this.changeSlide.bind(this);
+        this.state = {
+            slide: null
+        };
 
-    WebSocket.subscribeToSlideChange(this.changeSlide);
-  }
-
-  changeSlide(event) {
-    this.setState({ slide: event });
-  }
-
-  componentWillUnmount() {
-    WebSocket.unsubscribeToSlideChange(this.changeSlide);
-  }
-
-  render() {
-    let slide;
-    if (this.state.slide) {
-      switch (this.state.slide.type) {
-        case 'jiraRecordList':
-          slide = (<ScaledJiraRecordList key={this.state.slide.id} slide={this.state.slide}/>);
-          break;
-        case 'jiraRecord':
-          slide = (<ScaledJiraRecord key={this.state.slide.id} slide={this.state.slide}/>);
-          break;
-        case 'standUp':
-          slide = (<ScaledStandUp key={this.state.slide.id} slide={this.state.slide}/>);
-          break;
-        case 'lunch':
-          slide = (<ScaledLunch key={this.state.slide.id} slide={this.state.slide}/>);
-          break;
-        case 'countDown':
-          slide = (<ScaledCountDown key={this.state.slide.id} slide={this.state.slide}/>);
-          break;
-        default:
-          break;
-      }
+        WebSocket.subscribeToSlideChange(this.changeSlide);
     }
 
-    return (
-      <div className="App">
-        <ReactTransitions transition="fade-move-from-right" width={'100%'} height={'100%'}>
-          {slide}
-        </ReactTransitions>
-      </div>
-    );
-  }
+    changeSlide(event) {
+        this.setState({ slide: event });
+    }
+
+    componentWillUnmount() {
+        WebSocket.unsubscribeToSlideChange(this.changeSlide);
+    }
+
+    render() {
+        let slide;
+        if (this.state.slide) {
+            switch (this.state.slide.type) {
+                case 'jiraRecordList':
+                    slide = (<ScaledJiraRecordList key={this.state.slide.id} slide={this.state.slide}/>);
+                    break;
+                case 'jiraRecord':
+                    slide = (<ScaledJiraRecord key={this.state.slide.id} slide={this.state.slide}/>);
+                    break;
+                case 'standUp':
+                    slide = (<ScaledStandUp key={this.state.slide.id} slide={this.state.slide}/>);
+                    break;
+                case 'lunch':
+                    slide = (<ScaledLunch key={this.state.slide.id} slide={this.state.slide}/>);
+                    break;
+                case 'countDown':
+                    slide = (<ScaledCountDown key={this.state.slide.id} slide={this.state.slide}/>);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return (
+            <div className="App">
+                <ReactTransitions transition="fade-move-from-right" width={'100%'} height={'100%'}>
+                    {slide}
+                </ReactTransitions>
+            </div>
+        );
+    }
 
 }
 
