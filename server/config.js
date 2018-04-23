@@ -1,3 +1,4 @@
+
 module.exports = {
     server: {
         port: {
@@ -7,7 +8,15 @@ module.exports = {
     },
     jira: {
         user: null,
-        password: null
+        password: null,
+        slides: []
     },
-    transition: 'move-to-top-move-from-bottom'
+    transition: 'move-to-top-move-from-bottom',
+    standUp: {
+        schedule: '0 0 10 * * 1-5',
+        continuousCountdownFrom: '0 55 9 * * 1-5'
+    },
+    lunch: {
+        schedule: '0 0 12 * * 1-5'
+    }
 };

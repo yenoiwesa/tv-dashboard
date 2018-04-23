@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const cron = require('node-schedule');
+const Config = require('./config');
 const Jira = require('./jira');
 const JiraRecordListSlide = require('./slides/jiraRecordListSlide');
 const JiraRecordSlide = require('./slides/jiraRecordSlide');
@@ -7,50 +8,87 @@ const StandUpSlide = require('./slides/standUpSlide');
 const LunchSlide = require('./slides/lunchSlide');
 const CountDownSlide = require('./slides/countDownSlide');
 
-const RECENTLY_OPENED_FILTER_ID = 23344;
-const BUG_TRACKER_FILTER_ID = 22947;
-const IN_PROGRESS_FILTER_ID = 23345;
-const FILTERS = [RECENTLY_OPENED_FILTER_ID, BUG_TRACKER_FILTER_ID, IN_PROGRESS_FILTER_ID];
+const MAX_TIMEOUT = 2147483647;
+const RECORDS_PER_PAGE = 6;
 
 class Scheduler {
 
     constructor(emitCallback) {
         this.deck = [];
+        this.deckPreparator = [];
         this.currentSlide;
         this.emitCallback = emitCallback;
     }
 
     start() {
-    // prepare scheduled slides
-        this.standUpJob = cron.scheduleJob('0 0 10 * * 1-5', () => this.showSlide(new StandUpSlide()));
-        this.standUpFinalCountdown = cron.scheduleJob('0 55 9 * * 1-5', () =>
-            this.showSlide(new CountDownSlide(new Date(this.standUpJob.nextInvocation()), 'standUp', 10 * 60 * 1000))
-        );
-
-        this.lunchJob = cron.scheduleJob('0 0 12 * * 1-5', () => this.showSlide(new LunchSlide()));
-
-        // start the jira backend
-        this.jira = new Jira(FILTERS);
+        this.setupStandUp(Config.standUp);
+        this.setupLunch(Config.lunch);
+        this.setupJira(Config.jira);
     
         this.nextSlide();
     }
 
+    setupStandUp(config) {
+        if (!config) { return; }
+
+        const standUp = cron.scheduleJob(config.schedule, () => this.showSlide(new StandUpSlide()));
+        
+        const continuousCountdown = cron.scheduleJob(config.continuousCountdownFrom, () =>
+            this.showSlide(new CountDownSlide(new Date(continuousCountdown.nextInvocation()), 'standUp', MAX_TIMEOUT))
+        );
+
+        // countdown to stand up
+        this.deckPreparator.push(deck => {
+            deck.push(new CountDownSlide(new Date(standUp.nextInvocation()), 'standUp'));
+        });
+    }
+
+    setupLunch(config) {
+        if (!config) { return; }
+
+        cron.scheduleJob(config.schedule, () => this.showSlide(new LunchSlide()));
+    }
+
+    setupJira(config) {
+        if (!config) { return; }
+
+        // start the jira backend
+        const jira = new Jira(config.slides.map(slide => slide.jql));
+
+        // setup slides
+        for (const slide of config.slides) {
+            this.deckPreparator.push(deck => {
+                const records = jira.filters[slide.jql];
+                if (!_.size(records)) { return; }
+
+                // record list
+                if (slide.type === 'list') {
+                    const nbPages = Math.ceil(records.length / RECORDS_PER_PAGE);
+                    for (let page = 0; page < nbPages; page++) {
+                        const pageRecords = records.slice(page * RECORDS_PER_PAGE, (page + 1) * RECORDS_PER_PAGE);
+                        
+                        let title = slide.title;
+                        if (nbPages > 1) {
+                            title += ` (${page + 1}/${nbPages})`;
+                        }
+
+                        deck.push(new JiraRecordListSlide(title, pageRecords));
+                    }
+
+                }
+                // single records
+                else {
+                    for (const record of records) {
+                        deck.push(new JiraRecordSlide(slide.title, record));
+                    }
+                }
+            });
+        }
+    }
+
     prepareDeck() {
-    // countdown to stand up
-        this.deck.push(new CountDownSlide(new Date(this.standUpJob.nextInvocation()), 'standUp'));
-
-        // records in progress
-        this.deck.push(new JiraRecordListSlide('In progress', this.jira.filters[IN_PROGRESS_FILTER_ID]));
-
-        // records in backlog
-        this.deck.push(new JiraRecordListSlide('Bug tickets in backlog', this.jira.filters[BUG_TRACKER_FILTER_ID]));
-    
-        // recently opened records
-        const recentRecords = this.jira.filters[RECENTLY_OPENED_FILTER_ID];
-        if (recentRecords) {
-            for (const record of recentRecords) {
-                this.deck.push(new JiraRecordSlide('Recently created', record));
-            }
+        for (const preparator of this.deckPreparator) {
+            preparator(this.deck);
         }
     }
 
@@ -82,7 +120,7 @@ class Scheduler {
     }
 
     showSlide(slide) {
-    // if there is an existing slide, stop it
+        // if there is an existing slide, stop it
         if (this.currentSlide) {
             this.currentSlide.stop();
         }

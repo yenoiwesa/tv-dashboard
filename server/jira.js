@@ -8,8 +8,8 @@ const SPRINT_REGEX = /state=(CLOSED|ACTIVE|FUTURE),.*?name=(.*?),/;
 
 class Jira {
 
-    constructor(filterIds) {
-        this.filterIds = filterIds;
+    constructor(jiraQueries) {
+        this.jiraQueries = jiraQueries;
         this.filters = {};
 
         this.fetchRecords().then(() => {
@@ -34,17 +34,17 @@ class Jira {
             'customfield_11612'
         ].map(field => `fields=${field}`).join('&');
 
-        const promises = this.filterIds.map(filterId => {
+        const promises = this.jiraQueries.map(jql => {
             request({
-                uri: `${JIRA_SERVER}/rest/api/2/search?jql=filter=${filterId}&${fields}`,
+                uri: `${JIRA_SERVER}/rest/api/2/search?jql=${jql}&${fields}`,
                 json: true,
                 auth: {
                     user: Config.jira.user,
                     pass: Config.jira.password
                 }
             }).then(data => {
-                this.filters[filterId] = data.issues.map(Jira.mapRecord);
-                console.info(`Filter ${filterId} data retrieved at ${new Date()}.`);
+                this.filters[jql] = data.issues.map(Jira.mapRecord);
+                console.info(`Filter ${jql} data retrieved at ${new Date()}.`);
             });
         });
 
