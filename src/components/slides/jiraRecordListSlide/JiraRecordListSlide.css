@@ -23,9 +23,9 @@
 }
 
 .JiraRecordListSlide-column {
-  margin: 0 20px;
+  margin: 0 80px;
 }
 
 .JiraRecordListSlide-column > * {
-  margin: 20px 0;
+  margin: 40px 0;
 }

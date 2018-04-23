@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Config from '../../services/Config';
 import scaleSlide from '../slides/scaleSlide';
 import JiraRecordListSlide from '../slides/jiraRecordListSlide/JiraRecordListSlide';
 import JiraRecordSlide from '../slides/jiraRecordSlide/JiraRecordSlide';
@@ -22,8 +23,11 @@ class App extends Component {
         super(props);
         this.changeSlide = this.changeSlide.bind(this);
         this.state = {
-            slide: null
+            slide: null,
+            transition: 'move-to-left-move-from-right'
         };
+
+        Config.promise.then(config => this.setState({ transition: config.transition }));
 
         WebSocket.subscribeToSlideChange(this.changeSlide);
     }
@@ -62,7 +66,7 @@ class App extends Component {
 
         return (
             <div className="App">
-                <ReactTransitions transition="fade-move-from-right" width={'100%'} height={'100%'}>
+                <ReactTransitions transition={this.state.transition} width={'100%'} height={'100%'}>
                     {slide}
                 </ReactTransitions>
             </div>

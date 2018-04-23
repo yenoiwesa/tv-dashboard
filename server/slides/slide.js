@@ -10,7 +10,7 @@ class Slide {
 
     constructor(type) {
         this.type = type;
-        this.id = idGenerator.next();
+        this.id = idGenerator.next().value;
         // default duration
         this.duration = 10000;
         this.timeoutId;

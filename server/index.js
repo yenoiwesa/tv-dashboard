@@ -1,22 +1,26 @@
+const path = require('path');
 const minimist = require('minimist');
 const Config = require('./config');
-const staticServer = require('./static');
+const webserver = require('./webserver');
 const websocket = require('./websocket');
 
 const argv = minimist(process.argv.slice(2));
 
-// server port
-const httpPort = parseInt(argv.port || Config.port);
-console.log(httpPort);
-const wsPort = httpPort + 1;
+// configuration file
+const config = argv.config;
+if (!config) {
+    throw 'Configuration name (--config) must be provided in arguments';
+}
+Object.assign(Config, require(path.resolve(__dirname, '../config', config)));
 
 // jira credentials
-Config.jira.user = argv.user;
-Config.jira.passw = argv.passw;
-if (!Config.jira.user || !Config.jira.passw) {
-    throw 'Jira credentials (--user and --passw) must be provided in arguments';
+const jiraCredentials = (argv['jira-auth'] || '').split(':');
+if (jiraCredentials.length !== 2) {
+    throw 'Jira credentials (--jira-auth=user:password) must be provided in arguments';
 }
+Config.jira.user = jiraCredentials[0];
+Config.jira.password = jiraCredentials[1];
 
 // start servers
-staticServer.run(httpPort);
-websocket.run(wsPort);
+webserver.run(Config.server.port.web);
+websocket.run(Config.server.port.websocket);

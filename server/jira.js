@@ -40,7 +40,7 @@ class Jira {
                 json: true,
                 auth: {
                     user: Config.jira.user,
-                    pass: Config.jira.passw
+                    pass: Config.jira.password
                 }
             }).then(data => {
                 this.filters[filterId] = data.issues.map(Jira.mapRecord);

@@ -4,8 +4,8 @@ import JiraRecord from '../../jiraRecord/JiraRecord';
 import './JiraRecordListSlide.css';
 import '../slide.utils.css';
 
-const ITEMS_PER_COLUMN = 4;
-const MAX_COLUMNS = 3;
+const ITEMS_PER_COLUMN = 3;
+const MAX_COLUMNS = 2;
 
 class JiraRecordListSlide extends Component {
   

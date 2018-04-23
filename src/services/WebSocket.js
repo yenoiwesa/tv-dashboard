@@ -1,14 +1,19 @@
 import openSocket from 'socket.io-client';
+import Config from './Config';
 
-const location = window.location;
-const socket = openSocket(`${location.protocol}//${location.hostname}:8001`);
+const socketPromise = Config
+    .promise
+    .then(config => {
+        const location = window.location;
+        return openSocket(`${location.protocol}//${location.hostname}:${config.server.port.websocket}`);
+    });
 
 function subscribeToSlideChange(callback) {
-    socket.on('next-slide', callback);
+    socketPromise.then(socket => socket.on('next-slide', callback));
 }
 
 function unsubscribeToSlideChange(callback) {
-    socket.removeListener('next-slide', callback);
+    socketPromise.then(socket => socket.removeListener('next-slide', callback));
 }
 
 export default { subscribeToSlideChange, unsubscribeToSlideChange };
