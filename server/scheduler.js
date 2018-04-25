@@ -97,7 +97,7 @@ class Scheduler {
 
         // merge requests
         this.deckPreparator.push(deck => {
-            deck.push(new GitlabMergeRequestsSlide('Ongoing Merge Requests', gitlab.mergeRequests));
+            deck.push(new GitlabMergeRequestsSlide(gitlab.mergeRequests));
         });
     }
 

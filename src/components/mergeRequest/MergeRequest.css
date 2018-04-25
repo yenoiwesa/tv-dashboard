@@ -1,0 +1,13 @@
+.MergeRequest {
+    display: flex;
+    background: #2C3E50;
+    color: white;
+    border-left: 5px solid #1ABC9C;
+    border-radius: 4px;
+    font-weight: 300;
+    padding: 15px 20px;
+}
+
+.MergeRequest-title {
+    font-size: 34px;
+}

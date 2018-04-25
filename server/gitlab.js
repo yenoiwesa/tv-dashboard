@@ -46,6 +46,7 @@ class Gitlab {
     mapMergeRequest(raw) {
         if (raw) {
             return {
+                id: raw.id,
                 title: raw.title,
                 state: raw.state,
                 created: raw.created_at,
@@ -70,8 +71,10 @@ class Gitlab {
                 username: raw.username
             };
             // avatar can come from gitlab or be external (i.e. gravatar)
-            if (raw.avatar_url.start.startsWith(this.config.server)) {
+            if (raw.avatar_url.startsWith(this.config.server)) {
                 user.avatarUrl = '/gitlab' + raw.avatar_url.substring(this.config.server.length);
+            } else {
+                user.avatarUrl = raw.avatar_url;
             }
     
             return user;

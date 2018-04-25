@@ -1,0 +1,37 @@
+.GitlabMergeRequestsSlide {
+  background-color: #34495E;
+}
+
+.GitlabMergeRequestsSlide-content {
+  padding: 20px;
+  font-size: 22px;
+}
+
+.GitlabMergeRequestsSlide-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-size: 60px;
+  font-weight: 300;
+}
+
+.GitlabMergeRequestsSlide-logo {
+  height: 80px;
+  padding-right: 40px;
+  margin-right: 40px;
+  border-right: 2px solid #95A5A6;
+}
+
+.GitlabMergeRequestsSlide-items {
+  margin: 0 80px;
+  min-height: 800px;
+}
+
+.GitlabMergeRequestsSlide-items> * {
+  margin: 40px 0;
+}
