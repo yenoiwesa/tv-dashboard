@@ -9,7 +9,13 @@ module.exports = {
     jira: {
         user: null,
         password: null,
+        server: 'https://jira.objective.com',
         slides: []
+    },
+    gitlab: {
+        token: null,
+        projectId: null,
+        server: 'https://git.objective.com'
     },
     transition: 'move-to-top-move-from-bottom',
     standUp: {

@@ -17,5 +17,8 @@ module.exports = {
                 jql: 'filter=23344'
             }
         ]
+    },
+    gitlab: {
+        projectId: 125
     }
 };

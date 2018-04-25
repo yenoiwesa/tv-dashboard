@@ -1,24 +1,19 @@
 const cron = require('node-schedule');
 const _ = require('lodash');
 const request = require('request-promise');
-const Config = require('./config');
+const colors = require('colors/safe');
 
-const JIRA_SERVER = 'https://jira.objective.com';
 const SPRINT_REGEX = /state=(CLOSED|ACTIVE|FUTURE),.*?name=(.*?),/;
 
 class Jira {
 
-    constructor(jiraQueries) {
-        this.jiraQueries = jiraQueries;
+    constructor(config) {
+        this.config = config;
         this.filters = {};
 
         this.fetchRecords().then(() => {
             this.job = cron.scheduleJob('0 */5 * * * 1-5', () => this.fetchRecords());
         });
-    }
-
-    static get JIRA_SERVER() {
-        return JIRA_SERVER;
     }
 
     fetchRecords() {
@@ -34,38 +29,39 @@ class Jira {
             'customfield_11612'
         ].map(field => `fields=${field}`).join('&');
 
-        const promises = this.jiraQueries.map(jql => {
+        const promises = this.config.slides.map(slide => {
             request({
-                uri: `${JIRA_SERVER}/rest/api/2/search?jql=${jql}&${fields}`,
+                uri: `${this.config.server}/rest/api/2/search?jql=${slide.jql}&${fields}`,
                 json: true,
                 auth: {
-                    user: Config.jira.user,
-                    pass: Config.jira.password
+                    user: this.config.user,
+                    pass: this.config.password
                 }
             }).then(data => {
-                this.filters[jql] = data.issues.map(Jira.mapRecord);
-                console.info(`Filter ${jql} data retrieved at ${new Date()}.`);
+                const records = data.issues.map(issue => this.mapRecord(issue));
+                this.filters[slide.jql] = records;
+                console.info(`${colors.cyan.bold(' Jira')} - Filter ${slide.jql} data retrieved at ${new Date()}: ${records.length} records.`);
             });
         });
 
         return Promise.all(promises);
     }
 
-    static mapRecord(raw) {
+    mapRecord(raw) {
         return {
             key: raw.key,
-            type: Jira.mapType(raw.fields.issuetype),
+            type: this.mapType(raw.fields.issuetype),
             summary: raw.fields.summary,
-            assignee: Jira.mapUser(raw.fields.assignee),
-            priority: Jira.mapPriority(raw.fields.priority),
-            status: Jira.mapStatus(raw.fields.status),
+            assignee: this.mapUser(raw.fields.assignee),
+            priority: this.mapPriority(raw.fields.priority),
+            status: this.mapStatus(raw.fields.status),
             created: raw.fields.created,
-            creator: Jira.mapUser(raw.fields.creator),
-            sprint: Jira.mapSprint(raw.fields.customfield_11611)
+            creator: this.mapUser(raw.fields.creator),
+            sprint: this.mapSprint(raw.fields.customfield_11611)
         };
     }
 
-    static mapType(raw) {
+    mapType(raw) {
         if (raw) {
             return {
                 id: raw.id,
@@ -74,18 +70,18 @@ class Jira {
         }
     }
 
-    static mapUser(raw) {
+    mapUser(raw) {
         if (raw) {
             return {
                 name: raw.displayName,
                 shortName: raw.displayName.split(' ')[0],
                 emailAddress: raw.emailAddress,
-                avatarUrl: '/jira' + raw.avatarUrls['48x48'].substring(JIRA_SERVER.length)
+                avatarUrl: '/jira' + raw.avatarUrls['48x48'].substring(this.config.server.length)
             };
         }
     }
 
-    static mapPriority(raw) {
+    mapPriority(raw) {
         if (raw) {
             return {
                 id: raw.id,
@@ -94,7 +90,7 @@ class Jira {
         }
     }
 
-    static mapStatus(raw) {
+    mapStatus(raw) {
         if (raw) {
             return {
                 name: raw.name,
@@ -104,7 +100,7 @@ class Jira {
         }
     }
 
-    static mapSprint(raw) {
+    mapSprint(raw) {
         if (raw) {
             const sprints = raw.map(rawSprint => {
                 const matches = SPRINT_REGEX.exec(rawSprint);

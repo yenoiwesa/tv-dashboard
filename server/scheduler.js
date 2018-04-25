@@ -2,11 +2,13 @@ const _ = require('lodash');
 const cron = require('node-schedule');
 const Config = require('./config');
 const Jira = require('./jira');
+const Gitlab = require('./gitlab');
 const JiraRecordListSlide = require('./slides/jiraRecordListSlide');
 const JiraRecordSlide = require('./slides/jiraRecordSlide');
 const StandUpSlide = require('./slides/standUpSlide');
 const LunchSlide = require('./slides/lunchSlide');
 const CountDownSlide = require('./slides/countDownSlide');
+const GitlabMergeRequestsSlide = require('./slides/gitlabMergeRequestsSlide');
 
 const MAX_TIMEOUT = 2147483647;
 const RECORDS_PER_PAGE = 6;
@@ -24,6 +26,7 @@ class Scheduler {
         this.setupStandUp(Config.standUp);
         this.setupLunch(Config.lunch);
         this.setupJira(Config.jira);
+        this.setupGitlab(Config.gitlab);
     
         this.nextSlide();
     }
@@ -53,7 +56,7 @@ class Scheduler {
         if (!config) { return; }
 
         // start the jira backend
-        const jira = new Jira(config.slides.map(slide => slide.jql));
+        const jira = new Jira(config);
 
         // setup slides
         for (const slide of config.slides) {
@@ -84,6 +87,18 @@ class Scheduler {
                 }
             });
         }
+    }
+
+    setupGitlab(config) {
+        if (!config) { return; }
+
+        // start the gitlab backend
+        const gitlab = new Gitlab(config);
+
+        // merge requests
+        this.deckPreparator.push(deck => {
+            deck.push(new GitlabMergeRequestsSlide('Ongoing Merge Requests', gitlab.mergeRequests));
+        });
     }
 
     prepareDeck() {
