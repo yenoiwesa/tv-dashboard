@@ -36,8 +36,8 @@ class Scheduler {
 
         const standUp = cron.scheduleJob(config.schedule, () => this.showSlide(new StandUpSlide()));
         
-        const continuousCountdown = cron.scheduleJob(config.continuousCountdownFrom, () =>
-            this.showSlide(new CountDownSlide(new Date(continuousCountdown.nextInvocation()), 'standUp', MAX_TIMEOUT))
+        cron.scheduleJob(config.continuousCountdownFrom, () =>
+            this.showSlide(new CountDownSlide(new Date(standUp.nextInvocation()), 'standUp', MAX_TIMEOUT))
         );
 
         // countdown to stand up
@@ -69,13 +69,8 @@ class Scheduler {
                     const nbPages = Math.ceil(records.length / RECORDS_PER_PAGE);
                     for (let page = 0; page < nbPages; page++) {
                         const pageRecords = records.slice(page * RECORDS_PER_PAGE, (page + 1) * RECORDS_PER_PAGE);
-                        
-                        let title = slide.title;
-                        if (nbPages > 1) {
-                            title += ` (${page + 1}/${nbPages})`;
-                        }
 
-                        deck.push(new JiraRecordListSlide(title, pageRecords));
+                        deck.push(new JiraRecordListSlide(slide.title, pageRecords, page + 1, nbPages));
                     }
 
                 }

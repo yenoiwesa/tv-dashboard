@@ -12,7 +12,15 @@ class JiraRecordListSlide extends Component {
     render() {
         const slide = this.props.slide;
 
-        // form columns
+        // page number
+        let pageCount;
+        if (slide.totalPages > 1) {
+            pageCount = (
+                <span className="JiraRecordListSlide-page">({slide.page}/{slide.totalPages})</span>
+            );
+        }
+
+        // split in columns
         const columns = [];
         for (let index = 0; index < MAX_COLUMNS; index++) {
             const start = index * ITEMS_PER_COLUMN;
@@ -34,7 +42,7 @@ class JiraRecordListSlide extends Component {
                 <div className="JiraRecordListSlide-content">
                     <div className="JiraRecordListSlide-title">
                         <img src="assets/jira.svg" alt="Jira logo" className="JiraRecordListSlide-logo"></img>
-                        {slide.title}
+                        {slide.title} {pageCount}
                     </div>
                     <div className="JiraRecordListSlide-columns">
                         {columns}

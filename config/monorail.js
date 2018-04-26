@@ -18,7 +18,8 @@ module.exports = {
             }
         ]
     },
-    gitlab: {
-        projectId: 125
-    }
+    // gitlab: {
+    //     projectId: 125
+    // }
+    gitlab: null
 };
