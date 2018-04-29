@@ -10,6 +10,15 @@ class GitlabMergeRequestsSlide extends Component {
   
     render() {
         const slide = this.props.slide;
+
+        // page number
+        let pageCount;
+        if (slide.totalPages > 1) {
+            pageCount = (
+                <span className="u-slide-page-nb">({slide.page}/{slide.totalPages})</span>
+            );
+        }
+
         const mergeRequests = [];
         for (const mergeRequest of slide.mergeRequests.slice(0, MAX_ITEMS)) {
             mergeRequests.push((
@@ -20,9 +29,9 @@ class GitlabMergeRequestsSlide extends Component {
         return (
             <div className="GitlabMergeRequestsSlide u-slide-container">
                 <div className="GitlabMergeRequestsSlide-content">
-                    <div className="GitlabMergeRequestsSlide-title">
-                        <img src="assets/gitlab.svg" alt="Gitlab logo" className="GitlabMergeRequestsSlide-logo"></img>
-                        Merge Requests
+                    <div className="GitlabMergeRequestsSlide-title u-slide-title">
+                        <img src="assets/gitlab.svg" alt="Gitlab logo" className="GitlabMergeRequestsSlide-logo u-slide-logo"></img>
+                        Merge Requests {pageCount}
                     </div>
                     <div className="GitlabMergeRequestsSlide-items">
                         {mergeRequests}

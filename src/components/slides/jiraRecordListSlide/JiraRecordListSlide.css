@@ -8,31 +8,6 @@
   font-size: 22px;
 }
 
-.JiraRecordListSlide-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #7F8C8D;
-  text-align: center;
-  text-transform: capitalize;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  font-size: 60px;
-  font-weight: 300;
-}
-
-.JiraRecordListSlide-page {
-  color: #BDC3C7;
-  margin-left: 30px;
-}
-
-.JiraRecordListSlide-logo {
-  height: 60px;
-  padding-right: 40px;
-  margin-right: 40px;
-  border-right: 2px solid #BDC3C7;
-}
-
 .JiraRecordListSlide-columns {
   display: flex;
 }

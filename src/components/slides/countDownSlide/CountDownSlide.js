@@ -5,7 +5,7 @@ import './CountDownSlide.css';
 import '../slide.utils.css';
 
 class CountDownSlide extends Component {
-  
+
     render() {
         const slide = this.props.slide;
 
@@ -19,6 +19,13 @@ class CountDownSlide extends Component {
         switch (slide.event) {
             case 'standUp':
                 title = (<div className="CountDownSlide-title">Time left before <div className="CountDownSlide-event">stand up</div></div>);
+                
+                // play sound
+                if (slide.sound) {
+                    setTimeout(() => {
+                        (new Audio('/assets/fiveMinutesToStandUp.mp3')).play();
+                    }, 500);
+                }
                 break;
             case 'lunch':
                 title = (<div className="CountDownSlide-title">Countdown to <div className="CountDownSlide-event">lunch time</div></div>);

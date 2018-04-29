@@ -1,5 +1,6 @@
 const _ = require('lodash');
-const cron = require('node-schedule');
+const moment = require('moment');
+const schedule = require('node-schedule');
 const Config = require('./config');
 const Jira = require('./jira');
 const Gitlab = require('./gitlab');
@@ -12,6 +13,7 @@ const GitlabMergeRequestsSlide = require('./slides/gitlabMergeRequestsSlide');
 
 const MAX_TIMEOUT = 2147483647;
 const RECORDS_PER_PAGE = 6;
+const MERGE_REQUESTS_PER_PAGE = 3;
 
 class Scheduler {
 
@@ -34,10 +36,22 @@ class Scheduler {
     setupStandUp(config) {
         if (!config) { return; }
 
-        const standUp = cron.scheduleJob(config.schedule, () => this.showSlide(new StandUpSlide()));
+        const standUpTime = moment(config.time, 'HH:mm');
+        const standUpRecurrence = new schedule.RecurrenceRule();
+        standUpRecurrence.dayOfWeek = new schedule.Range(1, 5);
+        standUpRecurrence.hour = standUpTime.hours();
+        standUpRecurrence.minute = standUpTime.minutes();
+
+        const standUp = schedule.scheduleJob(standUpRecurrence, () => this.showSlide(new StandUpSlide(config.sound)));
         
-        cron.scheduleJob(config.continuousCountdownFrom, () =>
-            this.showSlide(new CountDownSlide(new Date(standUp.nextInvocation()), 'standUp', MAX_TIMEOUT))
+        const countdownTime = standUpTime.subtract(5, 'minutes');
+        const countdownRecurrence = new schedule.RecurrenceRule();
+        countdownRecurrence.dayOfWeek = new schedule.Range(1, 5);
+        countdownRecurrence.hour = countdownTime.hours();
+        countdownRecurrence.minute = countdownTime.minutes();
+
+        schedule.scheduleJob(countdownRecurrence, () =>
+            this.showSlide(new CountDownSlide(new Date(standUp.nextInvocation()), 'standUp', config.sound, MAX_TIMEOUT))
         );
 
         // countdown to stand up
@@ -49,7 +63,7 @@ class Scheduler {
     setupLunch(config) {
         if (!config) { return; }
 
-        cron.scheduleJob(config.schedule, () => this.showSlide(new LunchSlide()));
+        schedule.scheduleJob(config.schedule, () => this.showSlide(new LunchSlide()));
     }
 
     setupJira(config) {
@@ -92,7 +106,12 @@ class Scheduler {
 
         // merge requests
         this.deckPreparator.push(deck => {
-            deck.push(new GitlabMergeRequestsSlide(gitlab.mergeRequests));
+            const nbPages = Math.ceil(gitlab.mergeRequests.length / MERGE_REQUESTS_PER_PAGE);
+            for (let page = 0; page < nbPages; page++) {
+                const mrs = gitlab.mergeRequests.slice(page * MERGE_REQUESTS_PER_PAGE, (page + 1) * MERGE_REQUESTS_PER_PAGE);
+
+                deck.push(new GitlabMergeRequestsSlide(mrs, page + 1, nbPages));
+            }
         });
     }
 

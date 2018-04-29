@@ -5,3 +5,46 @@
   align-items: center;
   justify-content: center;
 }
+
+.u-slide-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7F8C8D;
+  text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-size: 60px;
+  font-weight: 300;
+}
+
+.u-slide-logo {
+  height: 60px;
+  padding-right: 40px;
+  margin-right: 40px;
+  border-right: 2px solid #BDC3C7;
+}
+
+.u-slide-page-nb {
+  color: #BDC3C7;
+  margin-left: 40px;
+}
+
+.u-slide-bottom {
+  margin-top: 10px;
+  display: flex;
+  font-weight: 300;
+  font-size: 16px;
+  color: #bdc3c7;
+}
+
+.u-slide-bottom > div {
+  margin-right: 20px;
+}
+
+.u-slide-bottom > div > span {
+  display: block;
+  font-size: 20px;
+  color: #95a5a6;
+}

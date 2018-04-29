@@ -25,7 +25,7 @@ class Gitlab {
 
     fetchMergeRequests() {
         return this
-            .fetch('merge_requests?state=opened')
+            .fetch('merge_requests?state=opened&sort=asc')
             .then(mergeRequests => Promise.all(mergeRequests.map(mr => this
                 // retrieve associated pipelines
                 .fetch(`merge_requests/${mr.iid}/pipelines`)
@@ -58,7 +58,7 @@ class Gitlab {
                 author: this.mapUser(raw.author),
                 assignee: this.mapUser(raw.assignee),
                 workInProgress: raw.work_in_progress,
-                mergeStatus: raw.merge_status
+                mergeConflicts: raw.merge_status === 'cannot_be_merged'
             };
         }
     }
@@ -68,6 +68,7 @@ class Gitlab {
             const user = {
                 id: raw.id,
                 name: raw.name,
+                shortName: raw.name.split(' ')[0],
                 username: raw.username
             };
             // avatar can come from gitlab or be external (i.e. gravatar)

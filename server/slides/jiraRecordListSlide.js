@@ -9,7 +9,7 @@ class JiraRecordListSlide extends Slide {
         this.records = records;
         this.page = page;
         this.totalPages = totalPages;
-        this.duration = _.size(this.records) * 4 * 1000;
+        this.duration = (_.size(this.records) * 3 + 6) * 1000;
     }
 
     isDisplayable() {

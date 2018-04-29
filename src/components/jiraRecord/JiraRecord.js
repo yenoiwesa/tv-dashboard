@@ -5,7 +5,6 @@ import _ from 'lodash';
 import './JiraRecord.css';
 
 class JiraRecord extends Component {
-  
     render() {
         const record = this.props.record;
         const priorityCode = record.priority.name.charAt(0);
@@ -15,23 +14,23 @@ class JiraRecord extends Component {
         switch (record.type.id) {
             case '1':
                 typeCode = 'bug';
-                typeIcon = (<i className="material-icons">whatshot</i>);
+                typeIcon = <i className="material-icons">whatshot</i>;
                 break;
             case '10000':
                 typeCode = 'bug'; /* customer bug */
-                typeIcon = (<i className="material-icons">bug_report</i>);
+                typeIcon = <i className="material-icons">bug_report</i>;
                 break;
             case '3':
                 typeCode = 'task';
-                typeIcon = (<i className="material-icons">check</i>);
+                typeIcon = <i className="material-icons">check</i>;
                 break;
             case '41':
                 typeCode = 'epic';
-                typeIcon = (<i className="material-icons">flash_on</i>);
+                typeIcon = <i className="material-icons">flash_on</i>;
                 break;
             case '42':
                 typeCode = 'story';
-                typeIcon = (<i className="material-icons">bookmark</i>);
+                typeIcon = <i className="material-icons">bookmark</i>;
                 break;
             default:
                 break;
@@ -39,19 +38,35 @@ class JiraRecord extends Component {
 
         let assignee;
         if (record.assignee) {
-            assignee = (<img src={record.assignee.avatarUrl} alt="Avatar" className="JiraRecord-avatar"/>);
+            assignee = <img src={record.assignee.avatarUrl} alt="Avatar" className="JiraRecord-avatar" />;
         }
 
         const bottomDetails = [];
-        bottomDetails.push((<div key="created">created <span>{moment(record.created).fromNow()}</span></div>));
+        bottomDetails.push(
+            <div key="created">
+                created <span>{moment(record.created).fromNow()}</span>
+            </div>
+        );
         if (record.creator) {
-            bottomDetails.push((<div key="creator">by <span>{record.creator.shortName}</span></div>));
+            bottomDetails.push(
+                <div key="creator">
+                    by <span>{record.creator.shortName}</span>
+                </div>
+            );
         }
         if (record.sprint) {
-            bottomDetails.push((<div key="sprint">in sprint <span>{record.sprint.name}</span></div>));
+            bottomDetails.push(
+                <div key="sprint">
+                    in sprint <span>{record.sprint.name}</span>
+                </div>
+            );
         }
         if (record.assignee) {
-            bottomDetails.push((<div key="assignee">assigned to <span>{record.assignee.shortName}</span></div>));
+            bottomDetails.push(
+                <div key="assignee">
+                    assigned to <span>{record.assignee.shortName}</span>
+                </div>
+            );
         }
 
         return (
@@ -64,13 +79,9 @@ class JiraRecord extends Component {
                     <div className="JiraRecord-key">{record.key}</div>
                     <div className="JiraRecord-summary">{_.truncate(record.summary, { length: 150 })}</div>
                     <div className={`JiraRecord-status JiraRecord-status-${record.status.key}`}>{record.status.name}</div>
-                    <div className="JiraRecord-bottom">
-                        {bottomDetails}
-                    </div>
+                    <div className="JiraRecord-bottom u-slide-bottom">{bottomDetails}</div>
                 </div>
-                <div className="JiraRecord-other-details">
-                    {assignee}
-                </div>
+                <div className="JiraRecord-other-details">{assignee}</div>
             </div>
         );
     }

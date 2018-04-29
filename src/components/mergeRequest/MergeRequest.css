@@ -1,13 +1,97 @@
 .MergeRequest {
     display: flex;
-    background: #2C3E50;
-    color: white;
-    border-left: 5px solid #1ABC9C;
+    background: white;
+    color: #2c3e50;
+    border: 1px solid #ccc;
+    border-left-width: 6px;
+    border-left-style: solid;
     border-radius: 4px;
-    font-weight: 300;
     padding: 15px 20px;
+    width: 1200px;
+}
+
+.MergeRequest-ok {
+    border-left-color: #1abc9c;
+}
+.MergeRequest-warn {
+    border-left-color: #e67e22;
+}
+.MergeRequest-error {
+    border-left-color: #e74c3c;
+}
+
+.MergeRequest-main {
+    flex: 1;
+}
+
+.MergeRequest-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.MergeRequest-branches {
+    font-size: 20px;
+    color: #2980B9;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
 .MergeRequest-title {
-    font-size: 34px;
+    font-size: 28px;
+    font-weight: 300;
+    min-height: 80px;
+}
+
+.MergeRequest-pipeline {
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 13px;
+    background-color: #95a5a6;
+    color: white;
+    letter-spacing: 0.5px;
+}
+.MergeRequest-pipeline-running,
+.MergeRequest-pipeline-pending {
+    background-color: #3498DB;
+}
+.MergeRequest-pipeline-failed,
+.MergeRequest-pipeline-suspended,
+.MergeRequest-pipeline-canceled {
+    background-color: #E74C3C;
+}
+.MergeRequest-pipeline-success {
+    background-color: #1abc9c;
+}
+
+.MergeRequest-avatar {
+    height: 80px;
+    width: 80px;
+    border-radius: 4px;
+    margin-bottom: auto;
+}
+
+.MergeRequest-upvotes,
+.MergeRequest-comments {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    margin-top: 15px;
+    font-size: 24px;
+    color: #95A5A6;
+    font-weight: 300;
+}
+
+.MergeRequest-upvotes > i,
+.MergeRequest-comments > i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.MergeRequest-upvotes-ok {
+    color: #1abc9c;
 }

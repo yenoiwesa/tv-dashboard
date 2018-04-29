@@ -19,8 +19,8 @@ module.exports = {
     },
     transition: 'move-to-top-move-from-bottom',
     standUp: {
-        schedule: '0 0 10 * * 1-5',
-        continuousCountdownFrom: '0 55 9 * * 1-5'
+        time: '10:00',
+        sound: true
     },
     lunch: {
         schedule: '0 0 12 * * 1-5'

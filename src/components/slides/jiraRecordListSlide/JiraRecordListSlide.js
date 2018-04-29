@@ -16,7 +16,7 @@ class JiraRecordListSlide extends Component {
         let pageCount;
         if (slide.totalPages > 1) {
             pageCount = (
-                <span className="JiraRecordListSlide-page">({slide.page}/{slide.totalPages})</span>
+                <span className="u-slide-page-nb">({slide.page}/{slide.totalPages})</span>
             );
         }
 
@@ -40,8 +40,8 @@ class JiraRecordListSlide extends Component {
         return (
             <div className="JiraRecordListSlide u-slide-container">
                 <div className="JiraRecordListSlide-content">
-                    <div className="JiraRecordListSlide-title">
-                        <img src="assets/jira.svg" alt="Jira logo" className="JiraRecordListSlide-logo"></img>
+                    <div className="JiraRecordListSlide-title u-slide-title">
+                        <img src="assets/jira.svg" alt="Jira logo" className="JiraRecordListSlide-logo u-slide-logo"></img>
                         {slide.title} {pageCount}
                     </div>
                     <div className="JiraRecordListSlide-columns">

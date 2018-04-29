@@ -1,145 +1,127 @@
 .JiraRecord {
-  display: flex;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  color: #2C3E50;
-  width: 600px;
-  padding: 15px;
+    display: flex;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #2c3e50;
+    width: 600px;
+    padding: 15px;
+    border-left-width: 6px;
+    border-left-style: solid;
 }
 
 .JiraRecord-bug {
-  border-left: 6px solid #E74C3C;
+    border-left-color: #e74c3c;
 }
 .JiraRecord-bug .JiraRecord-type {
-  background-color: #E74C3C;
+    background-color: #e74c3c;
 }
 
 .JiraRecord-task {
-  border-left: 6px solid #3498DB;
+    border-left-color: #3498db;
 }
 .JiraRecord-task .JiraRecord-type {
-  background-color: #3498DB;
+    background-color: #3498db;
 }
 
 .JiraRecord-story {
-  border-left: 6px solid #1ABC9C;
+    border-left-color: #1abc9c;
 }
 .JiraRecord-story .JiraRecord-type {
-  background-color: #1ABC9C;
+    background-color: #1abc9c;
 }
 
 .JiraRecord-epic {
-  border-left: 6px solid #8E44AD;
+    border-left-color: #8e44ad;
 }
 .JiraRecord-epic .JiraRecord-type {
-  background-color: #8E44AD;
+    background-color: #8e44ad;
 }
 
 .JiraRecord-main {
-  flex: 1;
+    flex: 1;
 }
 
 .JiraRecord-key {
-  color: #2980B9;
-  margin-bottom: 8px;
+    color: #2980b9;
+    margin-bottom: 8px;
 }
 
 .JiraRecord-type-details {
-  padding-right: 15px;
+    padding-right: 15px;
 }
 
 .JiraRecord-summary {
-  font-weight: 300;
-  min-height: 100px;
-  font-size: 25px;
+    font-weight: 300;
+    min-height: 100px;
+    font-size: 25px;
 }
 
 .JiraRecord-type {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  width: 25px;
-  height: 25px;
-  border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
 }
 
 .JiraRecord-type > i {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 .JiraRecord-priority {
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 14px;
-  font-weight: 500;
-  width: 25px;
-  height: 25px;
-  border-radius: 4px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
 }
 .JiraRecord-priority-I {
-  background-color: #95A5A6;
+    background-color: #95a5a6;
 }
 .JiraRecord-priority-L {
-  background-color: #1ABC9C;
+    background-color: #1abc9c;
 }
 .JiraRecord-priority-M {
-  background-color: #3498DB;
+    background-color: #3498db;
 }
 .JiraRecord-priority-H {
-  background-color: #E67E22;
+    background-color: #e67e22;
 }
 .JiraRecord-priority-C {
-  background-color: #C0392B;
+    background-color: #c0392b;
 }
 
 .JiraRecord-status {
-  display: inline-block;
-  padding: 3px 6px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  font-size: 13px;
-  background-color: #95A5A6;
-  color: white;
-  letter-spacing: 0.5px;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 13px;
+    background-color: #95a5a6;
+    color: white;
+    letter-spacing: 0.5px;
 }
-
 .JiraRecord-status-indeterminate {
-  background-color: #F39C12;
+    background-color: #f39c12;
 }
-
 .JiraRecord-status-done {
-  background-color: #1ABC9C;
-}
-
-.JiraRecord-bottom {
-  margin-top: 10px;
-  display: flex;
-  font-weight: 300;
-  font-size: 16px;
-  color: #BDC3C7;
-}
-
-.JiraRecord-bottom > div {
-  margin-right: 20px;
-}
-
-.JiraRecord-bottom > div > span {
-  display: block;
-  font-size: 20px;
-  color: #95A5A6;
+    background-color: #1abc9c;
 }
 
 .JiraRecord-other-details {
-  margin-left: 15px;
+    margin-left: 15px;
 }
 
 .JiraRecord-avatar {
-  border-radius: 4px;
-  height: 60px;
-  width: 60px;
+    border-radius: 4px;
+    height: 60px;
+    width: 60px;
 }

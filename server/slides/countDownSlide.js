@@ -3,10 +3,11 @@ const moment = require('moment');
 
 class CountDownSlide extends Slide {
 
-    constructor(date, event, duration = 10 * 1000) {
+    constructor(date, event, sound = false, duration = 10 * 1000) {
         super('countDown');
         this.date = date;
         this.event = event;
+        this.sound = sound;
         this.duration = duration;
     }
 
@@ -19,6 +20,7 @@ class CountDownSlide extends Slide {
         const data = super.getData();
         data.date = this.date;
         data.event = this.event;
+        data.sound = this.sound;
         return data;
     }
 

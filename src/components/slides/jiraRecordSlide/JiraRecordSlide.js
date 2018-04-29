@@ -12,8 +12,8 @@ class JiraRecordSlide extends Component {
         return (
             <div className="JiraRecordSlide u-slide-container">
                 <div className="JiraRecordSlide-content">
-                    <div className="JiraRecordSlide-title">
-                        <img src="assets/jira.svg" alt="Jira logo" className="JiraRecordSlide-logo"></img>
+                    <div className="JiraRecordSlide-title u-slide-title">
+                        <img src="assets/jira.svg" alt="Jira logo" className="JiraRecordSlide-logo u-slide-logo"></img>
                         {slide.title}
                     </div>
                     <JiraRecord record={slide.record} />
