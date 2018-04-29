@@ -7,8 +7,12 @@
   font-size: 22px;
 }
 
+.GitlabMergeRequestsSlide-title {
+  font-size: 45px;
+}
+
 .GitlabMergeRequestsSlide-logo {
-  height: 100px;
+  height: 70px;
 }
 
 .GitlabMergeRequestsSlide-items {
