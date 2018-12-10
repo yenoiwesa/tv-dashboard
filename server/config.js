@@ -1,4 +1,3 @@
-
 module.exports = {
     server: {
         port: {
@@ -9,13 +8,13 @@ module.exports = {
     jira: {
         user: null,
         password: null,
-        server: 'https://jira.objective.com',
+        server: null,
         slides: []
     },
     gitlab: {
         token: null,
         projectId: null,
-        server: 'https://git.objective.com'
+        server: null
     },
     transition: 'move-to-top-move-from-bottom',
     standUp: {
