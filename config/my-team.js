@@ -1,5 +1,7 @@
+// sample configuration overriding default ./server/config.js values
 module.exports = {
     jira: {
+        server: 'https://jira.objective.com',
         slides: [
             {
                 title: 'In progress',
@@ -19,6 +21,7 @@ module.exports = {
         ]
     },
     gitlab: {
+        server: 'https://git.objective.com',
         projectId: 125
     }
 };
